@@ -9,7 +9,6 @@
 import Foundation
 
 public enum IEventType {
-    case IEvent //IEvent基类
     case CreateTeam //创建团队
     case CreateProduct //创建产品
     case NewDemand //新功能、内容
@@ -23,12 +22,22 @@ public enum IEventType {
     case Assistance //协助
 }
 
-public class IEvent: DataBase {
-    public var type: IEventType { return .IEvent }
+protocol IEvent: DataBase {
+    var type: IEventType { get }
+    var strDesc: String { get } //事件类型描述
 
+    var arAcceptStr: [String] { get }
+    var arFeedbackStr: [String] { get }
+
+    var arSubIEventType: [IEventType] { get }
+}
+
+public class CreateTeam: IEvent {
     public let ID: DataID
     public let saverID: DataID
     public let createTime: TimeData
+
+    public let type: IEventType = .CreateTeam
 
     public init(ID: DataID, saverID: DataID, createTime: TimeData) {
         self.ID = ID
@@ -37,12 +46,18 @@ public class IEvent: DataBase {
     }
 }
 
-public class CreateTeam: IEvent {
-    public override var type: IEventType { return .CreateTeam }
-}
-
 public class CreateProduct: IEvent {
-    public override var type: IEventType { return .CreateProduct }
+    public let ID: DataID
+    public let saverID: DataID
+    public let createTime: TimeData
+
+    public let type: IEventType = .CreateProduct
+
+    public init(ID: DataID, saverID: DataID, createTime: TimeData) {
+        self.ID = ID
+        self.saverID = saverID
+        self.createTime = createTime
+    }
 }
 
 
