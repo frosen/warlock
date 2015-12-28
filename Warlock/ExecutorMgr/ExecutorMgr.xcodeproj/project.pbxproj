@@ -18,8 +18,8 @@
 		65AC585C1C2E327D00A77815 /* ExecutorSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AC585A1C2E327D00A77815 /* ExecutorSerializer.swift */; };
 		65AC585E1C2E332B00A77815 /* ExecutorSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AC585D1C2E332B00A77815 /* ExecutorSaver.swift */; };
 		65AC585F1C2E332B00A77815 /* ExecutorSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AC585D1C2E332B00A77815 /* ExecutorSaver.swift */; };
-		65AC58611C2E33E400A77815 /* IEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AC58601C2E33E400A77815 /* IEvent.swift */; };
-		65AC58621C2E33E400A77815 /* IEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AC58601C2E33E400A77815 /* IEvent.swift */; };
+		65AC58611C2E33E400A77815 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AC58601C2E33E400A77815 /* Event.swift */; };
+		65AC58621C2E33E400A77815 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AC58601C2E33E400A77815 /* Event.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,7 +44,7 @@
 		65AC58571C2E2EB600A77815 /* MgrCore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MgrCore.swift; sourceTree = "<group>"; };
 		65AC585A1C2E327D00A77815 /* ExecutorSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecutorSerializer.swift; sourceTree = "<group>"; };
 		65AC585D1C2E332B00A77815 /* ExecutorSaver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecutorSaver.swift; sourceTree = "<group>"; };
-		65AC58601C2E33E400A77815 /* IEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IEvent.swift; sourceTree = "<group>"; };
+		65AC58601C2E33E400A77815 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,10 +110,10 @@
 			isa = PBXGroup;
 			children = (
 				65AC58511C2E2E7A00A77815 /* DataBase.swift */,
+				65AC58601C2E33E400A77815 /* Event.swift */,
 				65AC58521C2E2E7A00A77815 /* Executor.swift */,
 				65AC585D1C2E332B00A77815 /* ExecutorSaver.swift */,
 				65AC585A1C2E327D00A77815 /* ExecutorSerializer.swift */,
-				65AC58601C2E33E400A77815 /* IEvent.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -242,7 +242,7 @@
 			files = (
 				65AC585B1C2E327D00A77815 /* ExecutorSerializer.swift in Sources */,
 				65AC585E1C2E332B00A77815 /* ExecutorSaver.swift in Sources */,
-				65AC58611C2E33E400A77815 /* IEvent.swift in Sources */,
+				65AC58611C2E33E400A77815 /* Event.swift in Sources */,
 				65AC58561C2E2E7A00A77815 /* Executor.swift in Sources */,
 				65AC58581C2E2EB600A77815 /* MgrCore.swift in Sources */,
 				65AC58551C2E2E7A00A77815 /* DataBase.swift in Sources */,
@@ -253,7 +253,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				65AC58621C2E33E400A77815 /* IEvent.swift in Sources */,
+				65AC58621C2E33E400A77815 /* Event.swift in Sources */,
 				65AC58461C2E2B3400A77815 /* ExecutorMgrTests.swift in Sources */,
 				65AC585C1C2E327D00A77815 /* ExecutorSerializer.swift in Sources */,
 				65AC585F1C2E332B00A77815 /* ExecutorSaver.swift in Sources */,
@@ -432,6 +432,7 @@
 				65AC584C1C2E2B3400A77815 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		65AC584D1C2E2B3400A77815 /* Build configuration list for PBXNativeTarget "ExecutorMgrTests" */ = {
 			isa = XCConfigurationList;
@@ -440,6 +441,7 @@
 				65AC584F1C2E2B3400A77815 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -24,11 +24,10 @@ public class LevelInfo {
 }
 
 public class RelatedData {
-    public var arTeamID: [DataID] = [DataID]()
+    public var arMEventID: [DataID] = [DataID]() //管理事件组，也就是根事件
 
-    public var arIEventHasID: [DataID] = [DataID]()
-    public var arIEventSendID: [DataID] = [DataID]()
-    public var arIEventReceiveID: [DataID] = [DataID]()
+    public var arCEventSendID: [DataID] = [DataID]()
+    public var arCEventReceiveID: [DataID] = [DataID]()
 }
 
 public class Executor: DataBase {
