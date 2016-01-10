@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import ExecutorMgr
+//@testable import ExecutorMgr
 
 class ExecutorMgrTests: XCTestCase {
     
