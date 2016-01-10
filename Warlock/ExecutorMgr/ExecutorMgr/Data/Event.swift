@@ -8,39 +8,11 @@
 
 import Foundation
 
-public enum EventType {
-    case Team //团队
-    case Product //产品
-    case Invite //邀请
-    case NewDemand //新功能、内容
-    case Improvement //改进
-    case Iterative //产品迭代
-    case Bug //bug
-    case Query //疑问
-    case Discussion //讨论会
-    case Proposal //需求建议
-    case Notice //通知
-    case Assistance //协助
-    case None //无类型，只用于判断
-    case All //所有类型，只用于判断
-}
-
-//交流状态
-public enum CEventState {
-    case Sent //发送中，接收者还没处理
-    case Received //接收者接受了事件
-    case Done //接受后并完成的事件
-    case PartlyDone //部分完成，用于有子需求的需求（或改进，bug）
-    case Feedback(String) //不接收的反馈，并附上理由
-    case Resent //重新发送
-    case Closed //关闭未被接受的
-}
-
 public protocol Event: DataBase {
     static var type: EventType { get }
     static var arParentEventType: [EventType] { get }
 
-    var creater: Executor { get } //事件创造者
+    var createrID: DataID { get } //事件创造者
 
     var parentEvent: Event? { set get } //父事件 可无
     var arChildEvent: [Event] { set get } //子事件组 有默认空
@@ -66,6 +38,11 @@ protocol CEvent: Event {
     var arReceiver: [Executor] { set get } //接收者组，被发送后接受的人 //有默认空
 }
 
+//待处理的生产事件 to be solved
+protocol ToBeSolEvent: CEvent {
+
+}
+
 //团队
 public class Team: MEvent {
     public let ID: DataID
@@ -75,7 +52,7 @@ public class Team: MEvent {
     public static let type: EventType = .Team
     public static let arParentEventType = [EventType.Team, .None]
 
-    public let creater: Executor
+    public var createrID: DataID
     public var parentEvent: Event?
     public var arChildEvent: [Event] = [Event]() //有默认空
     public var strDesc: String = "" //有默认空
@@ -86,16 +63,16 @@ public class Team: MEvent {
     public var strName: String
     public var arExecutorData: [ExecutorAuth]
 
-    public init(ID: DataID, saverID: DataID, createTime: TimeData, creater: Executor, parentEvent: Event?, strName: String) {
+    public init(ID: DataID, saverID: DataID, createTime: TimeData, createrID: DataID, parentEvent: Event?, strName: String) {
         self.ID = ID
         self.saverID = saverID
         self.createTime = createTime
 
-        self.creater = creater
+        self.createrID = createrID
         self.parentEvent = parentEvent
 
         self.strName = strName
-        self.arExecutorData = [ExecutorAuth(executor: creater)]
+        self.arExecutorData = [ExecutorAuth(executorID: createrID)]
     }
 }
 
@@ -108,7 +85,7 @@ public class Product: MEvent {
     public static let type: EventType = .Product
     public static let arParentEventType = [EventType.Team, .Product, .None]
 
-    public let creater: Executor
+    public var createrID: DataID
     public var parentEvent: Event?
     public var arChildEvent: [Event] = [Event]() //有默认空
     public var strDesc: String = "" //有默认空
@@ -119,16 +96,16 @@ public class Product: MEvent {
     public var strName: String
     public var arExecutorData: [ExecutorAuth]
 
-    public init(ID: DataID, saverID: DataID, createTime: TimeData, creater: Executor, parentEvent: Event?, strName: String) {
+    public init(ID: DataID, saverID: DataID, createTime: TimeData, createrID: DataID, parentEvent: Event?, strName: String) {
         self.ID = ID
         self.saverID = saverID
         self.createTime = createTime
 
-        self.creater = creater
+        self.createrID = createrID
         self.parentEvent = parentEvent
 
         self.strName = strName
-        self.arExecutorData = [ExecutorAuth(executor: creater)]
+        self.arExecutorData = [ExecutorAuth(executorID: createrID)]
     }
 }
 
@@ -141,7 +118,7 @@ public class Invite: CEvent {
     public static let type: EventType = .Invite
     public static let arParentEventType = [EventType.Team, .Product]
 
-    public let creater: Executor
+    public var createrID: DataID
     public var parentEvent: Event?
     public var arChildEvent: [Event] = [Event]() //有默认空
     public var strDesc: String
@@ -158,12 +135,14 @@ public class Invite: CEvent {
     public var arAddTag: [Tag] = [Tag]() //要给与的标签 有默认空
     public var arAddAuth: AuthList = AuthList() //要给与的权限 有默认空
 
-    public init(ID: DataID, saverID: DataID, createTime: TimeData, creater: Executor, parentEvent: Event?, strDesc: String, arGetter: [Executor]) {
+    //完成原因：无，接受后直接完成
+
+    public init(ID: DataID, saverID: DataID, createTime: TimeData, createrID: DataID, parentEvent: Event?, strDesc: String, arGetter: [Executor]) {
         self.ID = ID
         self.saverID = saverID
         self.createTime = createTime
 
-        self.creater = creater
+        self.createrID = createrID
         self.parentEvent = parentEvent
         self.strDesc = strDesc
 
@@ -172,7 +151,7 @@ public class Invite: CEvent {
 }
 
 //新需求：新任务，新内容
-public class NewDemand: CEvent {
+public class NewDemand: ToBeSolEvent {
     public let ID: DataID
     public let saverID: DataID
     public let createTime: TimeData
@@ -180,7 +159,7 @@ public class NewDemand: CEvent {
     public static let type: EventType = .NewDemand
     public static let arParentEventType = [EventType.Product, .NewDemand, .Improvement, .Bug]
 
-    public let creater: Executor
+    public var createrID: DataID
     public var parentEvent: Event?
     public var arChildEvent: [Event] = [Event]() //有默认空
     public var strDesc: String
@@ -188,20 +167,21 @@ public class NewDemand: CEvent {
     public static let arFeedbackStr: [String] = [
         NSLocalizedString("feedback_refuse", comment: "拒绝"),
     ]
-
     public var state: CEventState = .Sent //有默认
     public var arGetter: [Executor]
     public var nMaxReceiverNum: Int = 0 //有默认
     public var arReceiver: [Executor] = [Executor]() //有默认空
 
     //自有
+    //完成原因：迭代
+    public var doneIterativeID: DataID?
 
-    public init(ID: DataID, saverID: DataID, createTime: TimeData, creater: Executor, parentEvent: Event?, strDesc: String, arGetter: [Executor]) {
+    public init(ID: DataID, saverID: DataID, createTime: TimeData, createrID: DataID, parentEvent: Event?, strDesc: String, arGetter: [Executor]) {
         self.ID = ID
         self.saverID = saverID
         self.createTime = createTime
 
-        self.creater = creater
+        self.createrID = createrID
         self.parentEvent = parentEvent
 
         self.strDesc = strDesc
@@ -210,7 +190,7 @@ public class NewDemand: CEvent {
 }
 
 //改进
-public class Improvement: CEvent {
+public class Improvement: ToBeSolEvent {
     public let ID: DataID
     public let saverID: DataID
     public let createTime: TimeData
@@ -218,7 +198,7 @@ public class Improvement: CEvent {
     public static let type: EventType = .Improvement
     public static let arParentEventType = [EventType.Product, .NewDemand, .Improvement, .Bug]
 
-    public let creater: Executor
+    public var createrID: DataID
     public var parentEvent: Event?
     public var arChildEvent: [Event] = [Event]() //有默认空
     public var strDesc: String
@@ -226,20 +206,21 @@ public class Improvement: CEvent {
     public static let arFeedbackStr: [String] = [
         NSLocalizedString("feedback_refuse", comment: "拒绝"),
     ]
-
     public var state: CEventState = .Sent //有默认
     public var arGetter: [Executor]
     public var nMaxReceiverNum: Int = 0 //有默认
     public var arReceiver: [Executor] = [Executor]() //有默认空
 
     //自有
+    //完成原因：迭代
+    public var doneIterativeID: DataID?
 
-    public init(ID: DataID, saverID: DataID, createTime: TimeData, creater: Executor, parentEvent: Event?, strDesc: String, arGetter: [Executor]) {
+    public init(ID: DataID, saverID: DataID, createTime: TimeData, createrID: DataID, parentEvent: Event?, strDesc: String, arGetter: [Executor]) {
         self.ID = ID
         self.saverID = saverID
         self.createTime = createTime
 
-        self.creater = creater
+        self.createrID = createrID
         self.parentEvent = parentEvent
 
         self.strDesc = strDesc
@@ -256,7 +237,7 @@ public class Iterative: CEvent {
     public static let type: EventType = .Iterative
     public static let arParentEventType = [EventType.Product]
 
-    public let creater: Executor
+    public var createrID: DataID
     public var parentEvent: Event?
     public var arChildEvent: [Event] = [Event]() //有默认空
     public var strDesc: String
@@ -271,13 +252,56 @@ public class Iterative: CEvent {
     public var arReceiver: [Executor] = [Executor]() //有默认空
 
     //自有
+    public var iterativeType: IterativeType = .Debug //迭代类型
 
-    public init(ID: DataID, saverID: DataID, createTime: TimeData, creater: Executor, parentEvent: Event?, strDesc: String, arGetter: [Executor]) {
+    //完成原因：下一次迭代
+    public var doneNextIterativeID: DataID?
+
+    public init(ID: DataID, saverID: DataID, createTime: TimeData, createrID: DataID, parentEvent: Event?, strDesc: String, arGetter: [Executor]) {
         self.ID = ID
         self.saverID = saverID
         self.createTime = createTime
 
-        self.creater = creater
+        self.createrID = createrID
+        self.parentEvent = parentEvent
+
+        self.strDesc = strDesc
+        self.arGetter = arGetter
+    }
+}
+
+//bug
+public class Bug: ToBeSolEvent {
+    public let ID: DataID
+    public let saverID: DataID
+    public let createTime: TimeData
+
+    public static let type: EventType = .Bug
+    public static let arParentEventType = [EventType.Product, .Bug]
+
+    public var createrID: DataID
+    public var parentEvent: Event?
+    public var arChildEvent: [Event] = [Event]() //有默认空
+    public var strDesc: String
+
+    public static let arFeedbackStr: [String] = [
+        NSLocalizedString("feedback_refuse", comment: "拒绝"),
+    ]
+    public var state: CEventState = .Sent //有默认
+    public var arGetter: [Executor]
+    public var nMaxReceiverNum: Int = 0 //有默认
+    public var arReceiver: [Executor] = [Executor]() //有默认空
+
+    //自有
+    //完成原因：迭代
+    public var doneIterativeID: DataID?
+
+    public init(ID: DataID, saverID: DataID, createTime: TimeData, createrID: DataID, parentEvent: Event?, strDesc: String, arGetter: [Executor]) {
+        self.ID = ID
+        self.saverID = saverID
+        self.createTime = createTime
+
+        self.createrID = createrID
         self.parentEvent = parentEvent
 
         self.strDesc = strDesc
@@ -294,7 +318,7 @@ public class Query: CEvent {
     public static let type: EventType = .Query
     public static let arParentEventType = [EventType.All]
 
-    public let creater: Executor
+    public var createrID: DataID
     public var parentEvent: Event?
     public var arChildEvent: [Event] = [Event]() //有默认空
     public var strDesc: String
@@ -309,13 +333,14 @@ public class Query: CEvent {
     public var arReceiver: [Executor] = [Executor]() //有默认空
 
     //自有
+    //完成原因：进行了反馈
 
-    public init(ID: DataID, saverID: DataID, createTime: TimeData, creater: Executor, parentEvent: Event?, strDesc: String, arGetter: [Executor]) {
+    public init(ID: DataID, saverID: DataID, createTime: TimeData, createrID: DataID, parentEvent: Event?, strDesc: String, arGetter: [Executor]) {
         self.ID = ID
         self.saverID = saverID
         self.createTime = createTime
 
-        self.creater = creater
+        self.createrID = createrID
         self.parentEvent = parentEvent
 
         self.strDesc = strDesc
@@ -332,7 +357,7 @@ public class Discussion: CEvent {
     public static let type: EventType = .Discussion
     public static let arParentEventType = [EventType.All]
 
-    public let creater: Executor
+    public let createrID: DataID
     public var parentEvent: Event?
     public var arChildEvent: [Event] = [Event]() //有默认空
     public var strDesc: String
@@ -347,13 +372,14 @@ public class Discussion: CEvent {
     public var arReceiver: [Executor] = [Executor]() //有默认空
 
     //自有
+    //完成原因
 
-    public init(ID: DataID, saverID: DataID, createTime: TimeData, creater: Executor, parentEvent: Event?, strDesc: String, arGetter: [Executor]) {
+    public init(ID: DataID, saverID: DataID, createTime: TimeData, createrID: DataID, parentEvent: Event?, strDesc: String, arGetter: [Executor]) {
         self.ID = ID
         self.saverID = saverID
         self.createTime = createTime
 
-        self.creater = creater
+        self.createrID = createrID
         self.parentEvent = parentEvent
 
         self.strDesc = strDesc
@@ -370,7 +396,7 @@ public class Proposal: CEvent {
     public static let type: EventType = .Proposal
     public static let arParentEventType = [EventType.Product]
 
-    public let creater: Executor
+    public let createrID: DataID
     public var parentEvent: Event?
     public var arChildEvent: [Event] = [Event]() //有默认空
     public var strDesc: String
@@ -385,13 +411,15 @@ public class Proposal: CEvent {
     public var arReceiver: [Executor] = [Executor]() //有默认空
 
     //自有
+    //完成原因：某个需求，改进或者bug
+    public var doneToBeSolEventID: DataID?
 
-    public init(ID: DataID, saverID: DataID, createTime: TimeData, creater: Executor, parentEvent: Event?, strDesc: String, arGetter: [Executor]) {
+    public init(ID: DataID, saverID: DataID, createTime: TimeData, createrID: DataID, parentEvent: Event?, strDesc: String, arGetter: [Executor]) {
         self.ID = ID
         self.saverID = saverID
         self.createTime = createTime
 
-        self.creater = creater
+        self.createrID = createrID
         self.parentEvent = parentEvent
 
         self.strDesc = strDesc
@@ -408,7 +436,7 @@ public class Notice: CEvent {
     public static let type: EventType = .Notice
     public static let arParentEventType = [EventType.All]
 
-    public let creater: Executor
+    public let createrID: DataID
     public var parentEvent: Event?
     public var arChildEvent: [Event] = [Event]() //有默认空
     public var strDesc: String
@@ -420,13 +448,14 @@ public class Notice: CEvent {
     public var arReceiver: [Executor] = [Executor]() //有默认空
 
     //自有
+    //完成原因：无，接受后直接完成
 
-    public init(ID: DataID, saverID: DataID, createTime: TimeData, creater: Executor, parentEvent: Event?, strDesc: String, arGetter: [Executor]) {
+    public init(ID: DataID, saverID: DataID, createTime: TimeData, createrID: DataID, parentEvent: Event?, strDesc: String, arGetter: [Executor]) {
         self.ID = ID
         self.saverID = saverID
         self.createTime = createTime
 
-        self.creater = creater
+        self.createrID = createrID
         self.parentEvent = parentEvent
 
         self.strDesc = strDesc

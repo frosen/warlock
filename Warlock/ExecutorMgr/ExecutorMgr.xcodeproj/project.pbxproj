@@ -24,6 +24,7 @@
 		65AC585F1C2E332B00A77815 /* ExecutorSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AC585D1C2E332B00A77815 /* ExecutorSaver.swift */; };
 		65AC58611C2E33E400A77815 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AC58601C2E33E400A77815 /* Event.swift */; };
 		65AC58621C2E33E400A77815 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AC58601C2E33E400A77815 /* Event.swift */; };
+		65D2DE701C4292B10037EDB7 /* EventEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D2DE6F1C4292B10037EDB7 /* EventEnum.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		65AC585A1C2E327D00A77815 /* ExecutorSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecutorSerializer.swift; sourceTree = "<group>"; };
 		65AC585D1C2E332B00A77815 /* ExecutorSaver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecutorSaver.swift; sourceTree = "<group>"; };
 		65AC58601C2E33E400A77815 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		65D2DE6F1C4292B10037EDB7 /* EventEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventEnum.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +121,7 @@
 				655AA8A31C41DFF800D6D890 /* Auth.swift */,
 				65AC58511C2E2E7A00A77815 /* DataBase.swift */,
 				65AC58601C2E33E400A77815 /* Event.swift */,
+				65D2DE6F1C4292B10037EDB7 /* EventEnum.swift */,
 				655AA8A61C41FDFD00D6D890 /* EventSaver.swift */,
 				655AA8A81C41FE2100D6D890 /* EventSerializer.swift */,
 				65AC58521C2E2E7A00A77815 /* Executor.swift */,
@@ -259,6 +262,7 @@
 				65AC58581C2E2EB600A77815 /* MgrCore.swift in Sources */,
 				655AA8A71C41FDFD00D6D890 /* EventSaver.swift in Sources */,
 				65AC58551C2E2E7A00A77815 /* DataBase.swift in Sources */,
+				65D2DE701C4292B10037EDB7 /* EventEnum.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

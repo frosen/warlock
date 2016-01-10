@@ -64,12 +64,12 @@ public class Tag {
 //执行者对应的权限和标签的数据
 //团队和产品有着不同的默认权限设定
 public class ExecutorAuth {
-    public let executor: Executor
+    public let executorID: DataID
     public var arTag: [Tag] = [Tag]()
     public var authList: AuthList = AuthList()
 
-    public init(executor: Executor) {
-        self.executor = executor
+    public init(executorID: DataID) {
+        self.executorID = executorID
     }
 }
 
