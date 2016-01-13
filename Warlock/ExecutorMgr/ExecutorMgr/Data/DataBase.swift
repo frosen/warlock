@@ -25,11 +25,17 @@ public struct TimeData {
 }
 
 //所有数据类的基类
-public protocol DataBase {
-    var ID: DataID { get } //本结构体的id
-    var saverID: DataID { get } //变化记录器的id
+public class DataBase {
+    public let ID: DataID //本结构体的id
+    public let saverID: DataID //变化记录器的id
 
-    var createTime: TimeData { get } //创建时间
+    public let createTime: TimeData //创建时间
+
+    init(ID: DataID, saverID: DataID, createTime: TimeData) {
+        self.ID = ID
+        self.saverID = saverID
+        self.createTime = createTime
+    }
 }
 
 

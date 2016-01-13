@@ -31,24 +31,18 @@ public class RelatedData {
 }
 
 public class Executor: DataBase {
-    public let ID: DataID
-    public let saverID: DataID
-    public let createTime: TimeData
-
     public var token: ExecutorToken
     public var info: ExecutorInfo
     public var level: LevelInfo
     public var related: RelatedData
 
     public init(ID: DataID, saverID: DataID, createTime: TimeData, token: ExecutorToken, info: ExecutorInfo, level: LevelInfo, related: RelatedData) {
-        self.ID = ID
-        self.saverID = saverID
-        self.createTime = createTime
-
         self.token = token
         self.info = info
         self.level = level
         self.related = related
+
+        super.init(ID: ID, saverID: saverID, createTime: createTime)
     }
 }
 
