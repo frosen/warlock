@@ -8,12 +8,9 @@
 
 import Foundation
 
-public class Event: DataBase {
+public class Event: BaseData {
     public func getType() -> EventType {
         return .None
-    }
-    public func getTypeName() -> String {
-        return "Event"
     }
     public func getParentEventTypeArray() -> [EventType] {
         return []
@@ -26,7 +23,7 @@ public class Event: DataBase {
 
     public var strDesc: String //事件的基本描述
 
-    init(ID: DataID, saverID: DataID, createTime: TimeData, createrID: DataID, parentEvent: Event?, strDesc: String) {
+    init(ID: DataID, saverID: DataID, createTime: Time, createrID: DataID, parentEvent: Event?, strDesc: String) {
         self.createrID = createrID
         self.parentEvent = parentEvent
         self.strDesc = strDesc
@@ -49,7 +46,7 @@ public class MEvent: Event {
     public var arTagSaver: [TagSaver] = [TagSaver]() //记录所有拥有的tag
     public var arExecutorData: [ExecutorAuth] //必须有创建者自己
 
-    init(ID: DataID, saverID: DataID, createTime: TimeData, createrID: DataID, parentEvent: Event?, strDesc: String, strName: String) {
+    init(ID: DataID, saverID: DataID, createTime: Time, createrID: DataID, parentEvent: Event?, strDesc: String, strName: String) {
         self.strName = strName
         self.arExecutorData = [ExecutorAuth(executorID: createrID)]
 
@@ -68,7 +65,7 @@ public class CEvent: Event {
 
     public var nMaxReceiverNum: Int = 0 //最大接收者数量 如果小于等于0等于全部被发送者 默认为0
 
-    init(ID: DataID, saverID: DataID, createTime: TimeData, createrID: DataID, parentEvent: Event?, strDesc: String, arGetter: [DataID]) {
+    init(ID: DataID, saverID: DataID, createTime: Time, createrID: DataID, parentEvent: Event?, strDesc: String, arGetter: [DataID]) {
         for id in arGetter {
             self.arReceiverState.append((id, .Sent))
         }
@@ -88,9 +85,6 @@ public class Team: MEvent {
     public override func getType() -> EventType {
         return .Team
     }
-    public override func getTypeName() -> String {
-        return "Team"
-    }
     public override func getParentEventTypeArray() -> [EventType] {
         return [EventType.Team, .None]
     }
@@ -101,7 +95,7 @@ public class Team: MEvent {
         ]
     }
 
-    public override init(ID: DataID, saverID: DataID, createTime: TimeData, createrID: DataID, parentEvent: Event?, strDesc: String, strName: String) {
+    public override init(ID: DataID, saverID: DataID, createTime: Time, createrID: DataID, parentEvent: Event?, strDesc: String, strName: String) {
         super.init(ID: ID, saverID: saverID, createTime: createTime, createrID: createrID, parentEvent: parentEvent, strDesc: strDesc, strName: strName)
     }
 }
@@ -110,9 +104,6 @@ public class Team: MEvent {
 public class Product: MEvent {
     public override func getType() -> EventType {
         return .Product
-    }
-    public override func getTypeName() -> String {
-        return "Product"
     }
     public override func getParentEventTypeArray() -> [EventType] {
         return [EventType.Team, .Product, .None]
@@ -124,7 +115,7 @@ public class Product: MEvent {
         ]
     }
 
-    public override init(ID: DataID, saverID: DataID, createTime: TimeData, createrID: DataID, parentEvent: Event?, strDesc: String, strName: String) {
+    public override init(ID: DataID, saverID: DataID, createTime: Time, createrID: DataID, parentEvent: Event?, strDesc: String, strName: String) {
         super.init(ID: ID, saverID: saverID, createTime: createTime, createrID: createrID, parentEvent: parentEvent, strDesc: strDesc, strName: strName)
     }
 }
@@ -133,9 +124,6 @@ public class Product: MEvent {
 public class Invite: CEvent {
     public override func getType() -> EventType {
         return .Invite
-    }
-    public override func getTypeName() -> String {
-        return "Invite"
     }
     public override func getParentEventTypeArray() -> [EventType] {
         return [EventType.Team, .Product]
@@ -153,7 +141,7 @@ public class Invite: CEvent {
 
     //完成原因：无，接受后直接完成
 
-    public override init(ID: DataID, saverID: DataID, createTime: TimeData, createrID: DataID, parentEvent: Event?, strDesc: String, arGetter: [DataID]) {
+    public override init(ID: DataID, saverID: DataID, createTime: Time, createrID: DataID, parentEvent: Event?, strDesc: String, arGetter: [DataID]) {
         super.init(ID: ID, saverID: saverID, createTime: createTime, createrID: createrID, parentEvent: parentEvent, strDesc: strDesc, arGetter: arGetter)
     }
 }
@@ -163,9 +151,6 @@ public class NewDemand: ToBeSolEvent {
     public override func getType() -> EventType {
         return .NewDemand
     }
-    public override func getTypeName() -> String {
-        return "NewDemand"
-    }
     public override func getParentEventTypeArray() -> [EventType] {
         return [EventType.Product, .NewDemand, .Improvement, .Bug]
     }
@@ -179,7 +164,7 @@ public class NewDemand: ToBeSolEvent {
     //自有
     //完成原因：在ToBeSolEvent
 
-    public override init(ID: DataID, saverID: DataID, createTime: TimeData, createrID: DataID, parentEvent: Event?, strDesc: String, arGetter: [DataID]) {
+    public override init(ID: DataID, saverID: DataID, createTime: Time, createrID: DataID, parentEvent: Event?, strDesc: String, arGetter: [DataID]) {
         super.init(ID: ID, saverID: saverID, createTime: createTime, createrID: createrID, parentEvent: parentEvent, strDesc: strDesc, arGetter: arGetter)
     }
 }
@@ -189,9 +174,6 @@ public class Improvement: ToBeSolEvent {
     public override func getType() -> EventType {
         return .Improvement
     }
-    public override func getTypeName() -> String {
-        return "Improvement"
-    }
     public override func getParentEventTypeArray() -> [EventType] {
         return [EventType.Product, .NewDemand, .Improvement, .Bug]
     }
@@ -205,7 +187,7 @@ public class Improvement: ToBeSolEvent {
     //自有
     //完成原因：在ToBeSolEvent
 
-    public override init(ID: DataID, saverID: DataID, createTime: TimeData, createrID: DataID, parentEvent: Event?, strDesc: String, arGetter: [DataID]) {
+    public override init(ID: DataID, saverID: DataID, createTime: Time, createrID: DataID, parentEvent: Event?, strDesc: String, arGetter: [DataID]) {
         super.init(ID: ID, saverID: saverID, createTime: createTime, createrID: createrID, parentEvent: parentEvent, strDesc: strDesc, arGetter: arGetter)
     }
 }
@@ -214,9 +196,6 @@ public class Improvement: ToBeSolEvent {
 public class Iterative: CEvent {
     public override func getType() -> EventType {
         return .Iterative
-    }
-    public override func getTypeName() -> String {
-        return "Iterative"
     }
     public override func getParentEventTypeArray() -> [EventType] {
         return [EventType.Product]
@@ -234,7 +213,7 @@ public class Iterative: CEvent {
     //完成原因：下一次迭代
     public var doneNextIterativeID: DataID?
 
-    public override init(ID: DataID, saverID: DataID, createTime: TimeData, createrID: DataID, parentEvent: Event?, strDesc: String, arGetter: [DataID]) {
+    public override init(ID: DataID, saverID: DataID, createTime: Time, createrID: DataID, parentEvent: Event?, strDesc: String, arGetter: [DataID]) {
         super.init(ID: ID, saverID: saverID, createTime: createTime, createrID: createrID, parentEvent: parentEvent, strDesc: strDesc, arGetter: arGetter)
     }
 }
@@ -243,9 +222,6 @@ public class Iterative: CEvent {
 public class Bug: ToBeSolEvent {
     public override func getType() -> EventType {
         return .Bug
-    }
-    public override func getTypeName() -> String {
-        return "Bug"
     }
     public override func getParentEventTypeArray() -> [EventType] {
         return [EventType.Product, .Bug]
@@ -260,7 +236,7 @@ public class Bug: ToBeSolEvent {
     //自有
     //完成原因：在ToBeSolEvent
 
-    public override init(ID: DataID, saverID: DataID, createTime: TimeData, createrID: DataID, parentEvent: Event?, strDesc: String, arGetter: [DataID]) {
+    public override init(ID: DataID, saverID: DataID, createTime: Time, createrID: DataID, parentEvent: Event?, strDesc: String, arGetter: [DataID]) {
         super.init(ID: ID, saverID: saverID, createTime: createTime, createrID: createrID, parentEvent: parentEvent, strDesc: strDesc, arGetter: arGetter)
     }
 }
@@ -269,9 +245,6 @@ public class Bug: ToBeSolEvent {
 public class Query: CEvent {
     public override func getType() -> EventType {
         return .Query
-    }
-    public override func getTypeName() -> String {
-        return "Query"
     }
     public override func getParentEventTypeArray() -> [EventType] {
         return [EventType.All]
@@ -286,7 +259,7 @@ public class Query: CEvent {
     //自有
     //完成原因：进行了反馈
 
-    public override init(ID: DataID, saverID: DataID, createTime: TimeData, createrID: DataID, parentEvent: Event?, strDesc: String, arGetter: [DataID]) {
+    public override init(ID: DataID, saverID: DataID, createTime: Time, createrID: DataID, parentEvent: Event?, strDesc: String, arGetter: [DataID]) {
         super.init(ID: ID, saverID: saverID, createTime: createTime, createrID: createrID, parentEvent: parentEvent, strDesc: strDesc, arGetter: arGetter)
     }
 }
@@ -295,9 +268,6 @@ public class Query: CEvent {
 public class Discussion: CEvent {
     public override func getType() -> EventType {
         return .Discussion
-    }
-    public override func getTypeName() -> String {
-        return "Discussion"
     }
     public override func getParentEventTypeArray() -> [EventType] {
         return [EventType.All]
@@ -312,7 +282,7 @@ public class Discussion: CEvent {
     //自有
     //完成原因
 
-    public override init(ID: DataID, saverID: DataID, createTime: TimeData, createrID: DataID, parentEvent: Event?, strDesc: String, arGetter: [DataID]) {
+    public override init(ID: DataID, saverID: DataID, createTime: Time, createrID: DataID, parentEvent: Event?, strDesc: String, arGetter: [DataID]) {
         super.init(ID: ID, saverID: saverID, createTime: createTime, createrID: createrID, parentEvent: parentEvent, strDesc: strDesc, arGetter: arGetter)
     }
 }
@@ -321,9 +291,6 @@ public class Discussion: CEvent {
 public class Proposal: CEvent {
     public override func getType() -> EventType {
         return .Proposal
-    }
-    public override func getTypeName() -> String {
-        return "Proposal"
     }
     public override func getParentEventTypeArray() -> [EventType] {
         return [EventType.Product]
@@ -339,7 +306,7 @@ public class Proposal: CEvent {
     //完成原因：某个需求，改进或者bug
     public var doneToBeSolEventID: DataID?
 
-    public override init(ID: DataID, saverID: DataID, createTime: TimeData, createrID: DataID, parentEvent: Event?, strDesc: String, arGetter: [DataID]) {
+    public override init(ID: DataID, saverID: DataID, createTime: Time, createrID: DataID, parentEvent: Event?, strDesc: String, arGetter: [DataID]) {
         super.init(ID: ID, saverID: saverID, createTime: createTime, createrID: createrID, parentEvent: parentEvent, strDesc: strDesc, arGetter: arGetter)
     }
 }
@@ -348,9 +315,6 @@ public class Proposal: CEvent {
 public class Notice: CEvent {
     public override func getType() -> EventType {
         return .Notice
-    }
-    public override func getTypeName() -> String {
-        return "Notice"
     }
     public override func getParentEventTypeArray() -> [EventType] {
         return [EventType.All]
@@ -365,8 +329,19 @@ public class Notice: CEvent {
     //自有
     //完成原因：无，接受后直接完成
 
-    public override init(ID: DataID, saverID: DataID, createTime: TimeData, createrID: DataID, parentEvent: Event?, strDesc: String, arGetter: [DataID]) {
+    public override init(ID: DataID, saverID: DataID, createTime: Time, createrID: DataID, parentEvent: Event?, strDesc: String, arGetter: [DataID]) {
         super.init(ID: ID, saverID: saverID, createTime: createTime, createrID: createrID, parentEvent: parentEvent, strDesc: strDesc, arGetter: arGetter)
+    }
+}
+
+//反馈 对于任何交流事件的回复事件，
+//反馈事件被执行后，会删除掉，变成针对事件的一条saver记录
+public class Feedback: CEvent {
+    public override func getType() -> EventType {
+        return .Feedback
+    }
+    public override func getParentEventTypeArray() -> [EventType] {
+        return [EventType.All]
     }
 }
 

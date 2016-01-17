@@ -21,6 +21,7 @@ public enum EventType {
     case Proposal //需求建议
     case Notice //通知
     case Assistance //协助
+    case Feedback //反馈 特殊事件
     case None //无类型，只用于判断
     case All //所有类型，只用于判断
 }
