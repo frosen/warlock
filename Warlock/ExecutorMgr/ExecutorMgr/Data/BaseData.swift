@@ -1,5 +1,5 @@
 //
-//  DataBase.swift
+//  BaseData.swift
 //  fightGo
 //
 //  Created by 卢乐颜 on 15/12/22.
@@ -9,20 +9,30 @@
 import Foundation
 
 //辨识所有结构体的标志，由服务器产生，可轻松从服务器中查找
-public class DataID {
+public class DataID: Hashable {
     public let ID: Int //这个值用于在服务器快速查找该数据的位置
-    public weak var cls: DataCore? //指向本地的类，便于快速查找
 
     public init(ID: Int) {
         self.ID = ID
     }
+
+    public var hashValue: Int {
+        return ID
+    }
+}
+
+public func ==(lhs: DataID, rhs: DataID) -> Bool {
+    return lhs.ID == rhs.ID
 }
 
 //对时间表示的封装
 public struct Time {
-    let time: NSDate
+    public let time: NSDate?
 
     //以当前时间初始化
+    public init() {
+        self.time = nil
+    }
 }
 
 //所有数据类的核心
@@ -30,7 +40,6 @@ public class DataCore {
     public let ID: DataID //本结构体的id
     init(ID: DataID) {
         self.ID = ID
-        self.ID.cls = self
     }
 }
 

@@ -9,6 +9,22 @@
 import Foundation
 
 public class ExecutorMgr {
+
+    //管理事件，其相关的所有交流事件的结构，还有时间戳
+    public class MEventStruct {
+        var M: MEvent
+        var arC: [CEvent] = [CEvent]()
+        init(M: MEvent) {
+            self.M = M
+        }
+    }
+
+    //属性
+    var executor: Executor?
+    var eventList: [MEventStruct] = [] //事件列表
+    var ID2Class: [DataID: DataCore] = [:]
+
+    //生成单例
     public class var shared: ExecutorMgr {
         struct Static {
             static var ins: ExecutorMgr?
@@ -22,9 +38,19 @@ public class ExecutorMgr {
         return Static.ins!
     }
 
-    
+    //注册========================================================
 
+    //登录
 
+    //登出
+
+    //找回密码
+
+    //下载执行者信息========================================================
+
+    //更新执行者信息
+
+    //
 }
 
 

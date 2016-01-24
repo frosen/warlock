@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		650CE7A11C511E6B009185C7 /* BaseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650CE7A01C511E6B009185C7 /* BaseData.swift */; };
 		65499D371C4A86B600F53E49 /* Saver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65499D361C4A86B600F53E49 /* Saver.swift */; };
 		655AA8A41C41DFF800D6D890 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655AA8A31C41DFF800D6D890 /* Auth.swift */; };
 		655AA8A51C41DFF800D6D890 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655AA8A31C41DFF800D6D890 /* Auth.swift */; };
@@ -14,7 +15,6 @@
 		65AC583A1C2E2B3400A77815 /* ExecutorMgr.h in Headers */ = {isa = PBXBuildFile; fileRef = 65AC58391C2E2B3400A77815 /* ExecutorMgr.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		65AC58411C2E2B3400A77815 /* ExecutorMgr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65AC58361C2E2B3300A77815 /* ExecutorMgr.framework */; };
 		65AC58461C2E2B3400A77815 /* ExecutorMgrTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AC58451C2E2B3400A77815 /* ExecutorMgrTests.swift */; };
-		65AC58551C2E2E7A00A77815 /* DataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AC58511C2E2E7A00A77815 /* DataBase.swift */; };
 		65AC58561C2E2E7A00A77815 /* Executor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AC58521C2E2E7A00A77815 /* Executor.swift */; };
 		65AC58581C2E2EB600A77815 /* MgrCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AC58571C2E2EB600A77815 /* MgrCore.swift */; };
 		65AC58591C2E2EB600A77815 /* MgrCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AC58571C2E2EB600A77815 /* MgrCore.swift */; };
@@ -36,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		650CE7A01C511E6B009185C7 /* BaseData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseData.swift; sourceTree = "<group>"; };
 		65499D361C4A86B600F53E49 /* Saver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Saver.swift; sourceTree = "<group>"; };
 		655AA8A31C41DFF800D6D890 /* Auth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		655AA8A81C41FE2100D6D890 /* EventSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventSerializer.swift; sourceTree = "<group>"; };
@@ -45,7 +46,6 @@
 		65AC58401C2E2B3400A77815 /* ExecutorMgrTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExecutorMgrTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		65AC58451C2E2B3400A77815 /* ExecutorMgrTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExecutorMgrTests.swift; sourceTree = "<group>"; };
 		65AC58471C2E2B3400A77815 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		65AC58511C2E2E7A00A77815 /* DataBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataBase.swift; sourceTree = "<group>"; };
 		65AC58521C2E2E7A00A77815 /* Executor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Executor.swift; sourceTree = "<group>"; };
 		65AC58571C2E2EB600A77815 /* MgrCore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MgrCore.swift; sourceTree = "<group>"; };
 		65AC585A1C2E327D00A77815 /* ExecutorSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecutorSerializer.swift; sourceTree = "<group>"; };
@@ -116,7 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				655AA8A31C41DFF800D6D890 /* Auth.swift */,
-				65AC58511C2E2E7A00A77815 /* DataBase.swift */,
+				650CE7A01C511E6B009185C7 /* BaseData.swift */,
 				65AC58601C2E33E400A77815 /* Event.swift */,
 				65D2DE6F1C4292B10037EDB7 /* EventEnum.swift */,
 				655AA8A81C41FE2100D6D890 /* EventSerializer.swift */,
@@ -251,12 +251,12 @@
 			files = (
 				65AC585B1C2E327D00A77815 /* ExecutorSerializer.swift in Sources */,
 				65AC58611C2E33E400A77815 /* Event.swift in Sources */,
+				650CE7A11C511E6B009185C7 /* BaseData.swift in Sources */,
 				65AC58561C2E2E7A00A77815 /* Executor.swift in Sources */,
 				65499D371C4A86B600F53E49 /* Saver.swift in Sources */,
 				655AA8A41C41DFF800D6D890 /* Auth.swift in Sources */,
 				655AA8A91C41FE2100D6D890 /* EventSerializer.swift in Sources */,
 				65AC58581C2E2EB600A77815 /* MgrCore.swift in Sources */,
-				65AC58551C2E2E7A00A77815 /* DataBase.swift in Sources */,
 				65D2DE701C4292B10037EDB7 /* EventEnum.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
