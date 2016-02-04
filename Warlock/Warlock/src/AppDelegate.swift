@@ -16,6 +16,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+
+        let winFrame = UIScreen.mainScreen().bounds
+
+        print("win rect is: ", winFrame.width, winFrame.height, winFrame.origin.x, winFrame.origin.y)
+
+        window = UIWindow(frame: winFrame)
+        window!.backgroundColor = UIColor.blueColor()
+
+        let vc = RootViewCtrller4n()
+        window!.rootViewController = vc
+        window!.makeKeyAndVisible()
+
         return true
     }
 
