@@ -19,12 +19,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let winFrame = UIScreen.mainScreen().bounds
 
-        print("win rect is: ", winFrame.width, winFrame.height, winFrame.origin.x, winFrame.origin.y)
-
         window = UIWindow(frame: winFrame)
-        window!.backgroundColor = UIColor.blueColor()
+        window!.backgroundColor = UIColor.blackColor()
 
-        let vc = RootViewCtrller4n()
+        //进入根视图
+        let vc = RootViewCtrllerPh()
+
         window!.rootViewController = vc
         window!.makeKeyAndVisible()
 

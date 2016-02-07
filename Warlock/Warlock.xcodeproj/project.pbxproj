@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		653863EC1C6394B900A40753 /* RootViewCtrller4n.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653863EB1C6394B900A40753 /* RootViewCtrller4n.swift */; };
+		653863EC1C6394B900A40753 /* RootViewCtrllerPh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653863EB1C6394B900A40753 /* RootViewCtrllerPh.swift */; };
+		656AACD01C6623A80032E632 /* BasePageCtrllerPh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656AACCE1C6623A80032E632 /* BasePageCtrllerPh.swift */; };
+		656AACD11C6623A80032E632 /* PageMsgCtrllerPh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656AACCF1C6623A80032E632 /* PageMsgCtrllerPh.swift */; };
 		656BC8301C602787006DF7FE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 656BC82F1C602787006DF7FE /* Assets.xcassets */; };
 		656BC8331C602787006DF7FE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 656BC8311C602787006DF7FE /* LaunchScreen.storyboard */; };
 		656BC8621C6028F7006DF7FE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656BC8541C6028F7006DF7FE /* AppDelegate.swift */; };
@@ -27,7 +29,9 @@
 /* Begin PBXFileReference section */
 		3A09224ABF34403CBB4BFAFD /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B3FBC16922237719426DC6F /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		653863EB1C6394B900A40753 /* RootViewCtrller4n.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RootViewCtrller4n.swift; path = UIPhone/RootViewCtrller4n.swift; sourceTree = "<group>"; };
+		653863EB1C6394B900A40753 /* RootViewCtrllerPh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RootViewCtrllerPh.swift; path = UIPhone/RootViewCtrllerPh.swift; sourceTree = "<group>"; };
+		656AACCE1C6623A80032E632 /* BasePageCtrllerPh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BasePageCtrllerPh.swift; path = UIPhone/BasePageCtrllerPh.swift; sourceTree = "<group>"; };
+		656AACCF1C6623A80032E632 /* PageMsgCtrllerPh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageMsgCtrllerPh.swift; path = UIPhone/PageMsgCtrllerPh.swift; sourceTree = "<group>"; };
 		656BC8251C602787006DF7FE /* Warlock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Warlock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		656BC82F1C602787006DF7FE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		656BC8321C602787006DF7FE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -70,7 +74,9 @@
 		653863E91C63924500A40753 /* UIPhone */ = {
 			isa = PBXGroup;
 			children = (
-				653863EB1C6394B900A40753 /* RootViewCtrller4n.swift */,
+				656AACCE1C6623A80032E632 /* BasePageCtrllerPh.swift */,
+				656AACCF1C6623A80032E632 /* PageMsgCtrllerPh.swift */,
+				653863EB1C6394B900A40753 /* RootViewCtrllerPh.swift */,
 			);
 			name = UIPhone;
 			sourceTree = "<group>";
@@ -295,16 +301,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				656AACD01C6623A80032E632 /* BasePageCtrllerPh.swift in Sources */,
 				656BC86B1C6028F7006DF7FE /* Network.swift in Sources */,
 				656BC8651C6028F7006DF7FE /* Event.swift in Sources */,
 				656BC8621C6028F7006DF7FE /* AppDelegate.swift in Sources */,
 				656BC8671C6028F7006DF7FE /* EventSerializer.swift in Sources */,
+				656AACD11C6623A80032E632 /* PageMsgCtrllerPh.swift in Sources */,
 				656BC8631C6028F7006DF7FE /* Auth.swift in Sources */,
 				656BC8691C6028F7006DF7FE /* ExecutorSerializer.swift in Sources */,
 				656BC8711C602D7F006DF7FE /* ExecutorMgr.swift in Sources */,
 				656BC8641C6028F7006DF7FE /* BaseData.swift in Sources */,
 				656BC8661C6028F7006DF7FE /* EventEnum.swift in Sources */,
-				653863EC1C6394B900A40753 /* RootViewCtrller4n.swift in Sources */,
+				653863EC1C6394B900A40753 /* RootViewCtrllerPh.swift in Sources */,
 				656BC8681C6028F7006DF7FE /* Executor.swift in Sources */,
 				656BC86A1C6028F7006DF7FE /* Saver.swift in Sources */,
 			);
