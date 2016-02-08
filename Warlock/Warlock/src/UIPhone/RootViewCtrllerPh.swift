@@ -8,13 +8,16 @@
 
 import UIKit
 
-class RootViewCtrllerPh: UIViewController {
+class RootViewCtrllerPh: UIViewController, UIScrollViewDelegate {
 
     //变量--------------------------------------------------------------
     var _mainView: UIView!
     var _pageView: UIScrollView!
+    var _subviews: [BasePageCtrllerPh]!
     var _toolbar: UIToolbar! //工具条
     var _tabbar: UIToolbar! //下面的选择条
+
+    var _nCurPage: Int = 0
 
     //创建函数-----------------------------------------------------------
     override func loadView() {
@@ -47,18 +50,30 @@ class RootViewCtrllerPh: UIViewController {
         _pageView.backgroundColor = UIColor.orangeColor()
         _pageView.pagingEnabled = true
         _pageView.bounces = false
+        _pageView.showsHorizontalScrollIndicator = false
+
+        _pageView.delegate = self
 
         let sSize = _pageView.bounds.size
 
-        //4个页面
-        _pageView.contentSize = CGSize(width: sSize.width * 4, height: sSize.height)
+        //加载页面
+        _subviews = [
+            PageMsgCtrllerPh(rootCtrller: self),
+            PageProductCtrllerPh(rootCtrller: self),
+            PageTeamCtrllerPh(rootCtrller: self),
+            PageYouCtrllerPh(rootCtrller: self),
+        ]
 
-        let v1 = PageMsgCtrllerPh(rootCtrller: self)
-        v1.view.frame = CGRect(x: 0, y: 0, width: sSize.width, height: sSize.height)
-        _pageView.addSubview(v1.view)
+        _pageView.contentSize = CGSize(width: sSize.width * CGFloat(_subviews.count), height: sSize.height)
 
+        for i in 0 ..< _subviews.count {
+            _pageView.addSubview(_subviews[i].view)
+            _subviews[i].view.frame = CGRect(x: sSize.width * CGFloat(i), y: 0, width: sSize.width, height: sSize.height)
+        }
 
-
+        //初始时在第一个页面，所以调用其进入函数
+        _nCurPage = 0
+        _subviews.first!.enterPage()
     }
 
     func createToolbarInMainView(frame: CGRect) {
@@ -77,10 +92,10 @@ class RootViewCtrllerPh: UIViewController {
 
         _tabbar.backgroundColor = UIColor.brownColor()
 
-        let i1 = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "add:")
-        let i2 = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "add:")
-        let i3 = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "add:")
-        let i4 = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "add:")
+        let i1 = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "add1:")
+        let i2 = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "add2:")
+        let i3 = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "add3:")
+        let i4 = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "add4:")
         let s = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: self, action: nil)
 
         _tabbar.items = [s, i1, s, s, i2, s, s, i3, s, s, i4, s]
@@ -94,8 +109,73 @@ class RootViewCtrllerPh: UIViewController {
     }
 
     //回调函数-----------------------------------------------------------
-    func add(s: AnyObject) {
-        print("add")
+    func add1(s: AnyObject) {
+        movePage(0)
+    }
+
+    func add2(s: AnyObject) {
+        movePage(1)
+    }
+
+    func add3(s: AnyObject) {
+        movePage(2)
+    }
+
+    func add4(s: AnyObject) {
+        movePage(3)
+    }
+
+    //代理函数-----------------------------------------------------------
+    private var _fBeginOffsetX: Float? = nil
+    func scrollViewWillBeginDecelerating(scroll: UIScrollView) {
+        _fBeginOffsetX = Float(scroll.contentOffset.x)
+    }
+
+    func scrollViewDidScroll(scroll: UIScrollView) {
+        if _fBeginOffsetX != nil {
+            let bMoveRight = _fBeginOffsetX < Float(scroll.contentOffset.x)
+            let bAtRight = CGFloat(_nCurPage) * scroll.bounds.width < scroll.contentOffset.x
+            if bMoveRight && bAtRight {
+                ++_nCurPage
+            } else if !bMoveRight && !bAtRight {
+                --_nCurPage
+            }
+            _nCurPage = min(max(0, _nCurPage), _subviews.count)
+            _fBeginOffsetX = nil
+
+            print("开始滑动到", _nCurPage)
+            onBeganMovePageTo(_nCurPage)
+        }
+    }
+
+    func scrollViewDidEndDecelerating(scroll: UIScrollView) {
+        print("滑动到", scroll.contentOffset.x)
+        onDoneMovePageTo(_nCurPage)
+    }
+
+    //移动page--------------------
+    private func movePage(index: Int) {
+        print("按钮移动到", index)
+        _nCurPage = index
+        onBeganMovePageTo(index)
+        UIView.animateWithDuration(0.2, animations: {
+
+            self._pageView.contentOffset = CGPoint(
+                x: self._pageView.bounds.size.width * CGFloat(index),
+                y: 0
+            )
+
+            }, completion: {
+                _ in self.onDoneMovePageTo(index)
+        })
+    }
+
+    private func onBeganMovePageTo(index: Int) {
+
+    }
+
+    private func onDoneMovePageTo(index: Int) {
+        
     }
 
     //------------------------------------------------------------------

@@ -1,20 +1,19 @@
 //
-//  PageMsgCtrllerPh.swift
+//  PageProductCtrllerPh.swift
 //  Warlock
-//  消息页面
-//  Created by 卢乐颜 on 16/2/6.
+//  产品页面
+//  Created by 卢乐颜 on 16/2/8.
 //  Copyright © 2016年 卢乐颜. All rights reserved.
 //
 
 import UIKit
 
-class PageMsgCtrllerPh: BasePageCtrllerPh {
+class PageProductCtrllerPh: BasePageCtrllerPh {
     override func initPage() {
-        print("init page msg")
+        print("init page prod")
     }
 
     override func enterPage() {
         super.enterPage()
     }
 }
-//170.800.165.51
