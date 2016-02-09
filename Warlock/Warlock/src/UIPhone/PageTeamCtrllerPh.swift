@@ -13,7 +13,7 @@ class PageTeamCtrllerPh: BasePageCtrllerPh {
         print("init page tean")
     }
 
-    override func enterPage() {
-        super.enterPage()
+    override func switchToolbarBtn() {
+
     }
 }

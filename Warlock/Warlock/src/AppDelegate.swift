@@ -13,7 +13,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
 
@@ -21,6 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         window = UIWindow(frame: winFrame)
         window!.backgroundColor = UIColor.blackColor()
+
+        //读取配置
 
         //进入根视图
         let vc = RootViewCtrllerPh()

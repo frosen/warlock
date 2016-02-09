@@ -13,7 +13,7 @@ class PageYouCtrllerPh: BasePageCtrllerPh {
         print("init page you")
     }
 
-    override func enterPage() {
-        super.enterPage()
+    override func switchToolbarBtn() {
+
     }
 }

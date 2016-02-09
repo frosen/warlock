@@ -70,10 +70,6 @@ class RootViewCtrllerPh: UIViewController, UIScrollViewDelegate {
             _pageView.addSubview(_subviews[i].view)
             _subviews[i].view.frame = CGRect(x: sSize.width * CGFloat(i), y: 0, width: sSize.width, height: sSize.height)
         }
-
-        //初始时在第一个页面，所以调用其进入函数
-        _nCurPage = 0
-        _subviews.first!.enterPage()
     }
 
     func createToolbarInMainView(frame: CGRect) {
@@ -106,6 +102,13 @@ class RootViewCtrllerPh: UIViewController, UIScrollViewDelegate {
         view.addSubview(status)
 
         status.backgroundColor = UIColor.redColor()
+    }
+
+    override func viewDidLoad() {
+        print("b")
+        //初始时在第一个页面，所以调用其进入函数
+        _nCurPage = 0
+        _subviews.first!.enterPage()
     }
 
     //回调函数-----------------------------------------------------------
@@ -171,11 +174,14 @@ class RootViewCtrllerPh: UIViewController, UIScrollViewDelegate {
     }
 
     private func onBeganMovePageTo(index: Int) {
-
+        //动画保护
     }
 
     private func onDoneMovePageTo(index: Int) {
-        
+        //解除保护
+
+        //进入页面
+        _subviews[index].enterPage()
     }
 
     //------------------------------------------------------------------

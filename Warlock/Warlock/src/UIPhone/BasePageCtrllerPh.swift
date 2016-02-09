@@ -28,12 +28,24 @@ class BasePageCtrllerPh: UIViewController {
         super.loadView()
         view.bounds = _rootCtrller._pageView.bounds
 
-        let center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height / 2)
-        let label: UILabel = UILabel(frame: CGRect(x: center.x, y: center.y, width: 100, height: 20))
+        createNeverEnterView()
+    }
 
-        view.addSubview(label)
+    final func createNeverEnterView() {
+        let center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height / 2)
+        let label: UILabel = UILabel()
 
         label.text = "wahaha"
+        label.sizeToFit()
+
+        label.center = center
+        label.backgroundColor = UIColor.redColor()
+
+        view.addSubview(label)
+    }
+
+    final func clearView() {
+        for v in view.subviews { v.removeFromSuperview() }
     }
 
     //进入页面，需要继承加载各自的页面
@@ -42,10 +54,16 @@ class BasePageCtrllerPh: UIViewController {
             _bPageInit = true
             initPage()
         }
+        switchToolbarBtn()
     }
 
     //页面初始化
     func initPage() {
         fatalError("initPage need inherit")
+    }
+
+    //切换工具条按钮
+    func switchToolbarBtn() {
+        fatalError("switchToolbarBtn need inherit")
     }
 }

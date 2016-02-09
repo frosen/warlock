@@ -11,10 +11,12 @@ import UIKit
 class PageMsgCtrllerPh: BasePageCtrllerPh {
     override func initPage() {
         print("init page msg")
+        clearView()
+        view.backgroundColor = UIColor.brownColor()
     }
 
-    override func enterPage() {
-        super.enterPage()
+    override func switchToolbarBtn() {
+
     }
 }
 //170.800.165.51
