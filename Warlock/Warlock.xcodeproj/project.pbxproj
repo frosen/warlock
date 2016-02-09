@@ -120,11 +120,11 @@
 		656BC8271C602787006DF7FE /* Warlock */ = {
 			isa = PBXGroup;
 			children = (
+				656BC82F1C602787006DF7FE /* Assets.xcassets */,
+				656BC8341C602787006DF7FE /* Info.plist */,
+				656BC8311C602787006DF7FE /* LaunchScreen.storyboard */,
 				659B0C3D1C6A1EBE00D860A2 /* res */,
 				656BC8531C6028F7006DF7FE /* src */,
-				656BC82F1C602787006DF7FE /* Assets.xcassets */,
-				656BC8311C602787006DF7FE /* LaunchScreen.storyboard */,
-				656BC8341C602787006DF7FE /* Info.plist */,
 			);
 			path = Warlock;
 			sourceTree = "<group>";
