@@ -54,7 +54,6 @@ class BasePageCtrllerPh: UIViewController {
             _bPageInit = true
             initPage()
         }
-        switchToolbarBtn()
     }
 
     //页面初始化
@@ -62,8 +61,9 @@ class BasePageCtrllerPh: UIViewController {
         fatalError("initPage need inherit")
     }
 
-    //切换工具条按钮
-    func switchToolbarBtn() {
-        fatalError("switchToolbarBtn need inherit")
+    //获取本页所属的工具条按钮
+    func getToolbarBtn() -> [UIBarButtonItem]? {
+        print("switchToolbarBtn need inherit")
+        return nil
     }
 }

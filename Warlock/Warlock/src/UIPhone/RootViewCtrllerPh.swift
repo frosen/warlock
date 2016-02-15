@@ -44,7 +44,7 @@ class RootViewCtrllerPh: UIViewController, UIScrollViewDelegate {
     }
 
     func createPageViewInMainView(frame: CGRect) {
-        _pageView = UIScrollView(frame: CGRect(x: 0, y: 44, width: frame.width, height: frame.height - 44)) //TODO：先不实现隐藏toolbar，所以不让toolbar遮挡住page
+        _pageView = UIScrollView(frame: CGRect(x: 0, y: 44, width: frame.width, height: frame.height - 44)) //TODO：是不是不用隐藏toolbar了，与里面table展开有冲突？
         _mainView.addSubview(_pageView)
 
         _pageView.backgroundColor = UIColor.orangeColor()
@@ -105,10 +105,9 @@ class RootViewCtrllerPh: UIViewController, UIScrollViewDelegate {
     }
 
     override func viewDidLoad() {
-        print("b")
         //初始时在第一个页面，所以调用其进入函数
         _nCurPage = 0
-        _subviews.first!.enterPage()
+        onDoneMovePageTo(_nCurPage)
     }
 
     //回调函数-----------------------------------------------------------
@@ -175,13 +174,25 @@ class RootViewCtrllerPh: UIViewController, UIScrollViewDelegate {
 
     private func onBeganMovePageTo(index: Int) {
         //动画保护
+        view.userInteractionEnabled = false
     }
 
     private func onDoneMovePageTo(index: Int) {
         //解除保护
+        view.userInteractionEnabled = true
+
+        //切换toolbar上按钮
+        switchToolbarBtn(index)
 
         //进入页面
         _subviews[index].enterPage()
+    }
+
+    private func switchToolbarBtn(index: Int) {
+        let arToolBtn = _subviews[index].getToolbarBtn()
+        if arToolBtn != nil {
+            
+        }
     }
 
     //------------------------------------------------------------------

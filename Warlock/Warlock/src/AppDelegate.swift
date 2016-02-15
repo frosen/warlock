@@ -23,6 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         //读取配置
 
+        //根据是否是已登录状态进入不同状态的根视图
+
         //进入根视图
         let vc = RootViewCtrllerPh()
 

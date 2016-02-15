@@ -12,8 +12,4 @@ class PageTeamCtrllerPh: BasePageCtrllerPh {
     override func initPage() {
         print("init page tean")
     }
-
-    override func switchToolbarBtn() {
-
-    }
 }

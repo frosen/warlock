@@ -12,8 +12,4 @@ class PageYouCtrllerPh: BasePageCtrllerPh {
     override func initPage() {
         print("init page you")
     }
-
-    override func switchToolbarBtn() {
-
-    }
 }

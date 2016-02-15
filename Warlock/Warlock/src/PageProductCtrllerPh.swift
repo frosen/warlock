@@ -12,8 +12,4 @@ class PageProductCtrllerPh: BasePageCtrllerPh {
     override func initPage() {
         print("init page prod")
     }
-
-    override func switchToolbarBtn() {
-
-    }
 }
