@@ -24,38 +24,41 @@ class PageMsgCtrllerPh: BasePageCtrllerPh, UITableViewDelegate, UITableViewDataS
         _listView.delegate = self
         _listView.dataSource = self
 
+        //设置列表的各种属性
+        //_listView.separatorStyle = .None
+
         let plistPath = NSBundle.mainBundle().pathForResource("team", ofType: "plist", inDirectory: "res")
         //获取属性列表文件中的全部数据
         _arTeam = NSArray(contentsOfFile: plistPath!)!
-
-        let btn = UIButton(frame: CGRect(x: 50, y: 50, width: 50, height: 20))
-        btn.addTarget(self, action: "v:", forControlEvents: .TouchUpInside)
-        btn.backgroundColor = UIColor.redColor()
-        view.addSubview(btn)
-
-        //print(_arTeam)
-
-
-        
     }
 
-    func v(s: AnyObject) {
-        UIView.animateWithDuration(3, delay: 3, options: [], animations: { _ in
-            self._listView.frame.size = CGSize(
-                width: self._listView.frame.width,
-                height: self._listView.frame.height / 2
-            )
-        }, completion: nil)
+    override func getToolbarBtns() -> [UIBarButtonItem]? {
+        let btn = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "test1:")
+        let btn2 = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "test2:")
+        return [btn, btn2]
     }
 
+    var _aa: Int? = nil
+    func test1(s: AnyObject) {
+        print("teest 1")
+        let v = 6
+        _aa = v
+        _listView.beginUpdates()
+        _listView.endUpdates()
 
-    override func getToolbarBtn() -> [UIBarButtonItem]? {
-        return nil
+        _listView.scrollToRowAtIndexPath(NSIndexPath(forRow: v, inSection: 0), atScrollPosition: .Top, animated: true)
+    }
+
+    func test2(s: AnyObject) {
+        print("teest 2")
     }
 
     //tableView协议---------------------------
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 50
+        if _aa != nil && _aa! == indexPath.row {
+            return _listView.bounds.height
+        }
+        return 99
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -68,16 +71,16 @@ class PageMsgCtrllerPh: BasePageCtrllerPh, UITableViewDelegate, UITableViewDataS
     //tableView数据源--------------------------
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print("num")
-        return 10
+        return 30
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .Value1, reuseIdentifier: "aa")
+
         cell.textLabel?.text = "yoyo" + String(indexPath.row)
         cell.contentView.backgroundColor = UIColor.yellowColor()
-        print("height", cell.bounds.height, cell.contentView.bounds.height)
+//        print("height", indexPath.row, indexPath.section)
 
-        tableView.beginUpdates()
         return cell
     }
 

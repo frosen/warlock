@@ -1,5 +1,5 @@
 //
-//  BaseData.swift
+//  DataBase.swift
 //  fightGo
 //
 //  Created by 卢乐颜 on 15/12/22.
@@ -35,23 +35,11 @@ struct Time {
     }
 }
 
-//所有数据类的核心
-class DataCore {
+//基本数据
+class DataBase {
     let ID: DataID //本结构体的id
     init(ID: DataID) {
         self.ID = ID
-    }
-}
-
-//基本数据
-class BaseData: DataCore {
-    let saverID: DataID //变化记录器的id
-    let createTime: Time //创建时间
-
-    init(ID: DataID, saverID: DataID, createTime: Time) {
-        self.saverID = saverID
-        self.createTime = createTime
-        super.init(ID: ID)
     }
 }
 

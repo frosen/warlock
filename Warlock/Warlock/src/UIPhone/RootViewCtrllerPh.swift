@@ -17,6 +17,9 @@ class RootViewCtrllerPh: UIViewController, UIScrollViewDelegate {
     var _toolbar: UIToolbar! //工具条
     var _tabbar: UIToolbar! //下面的选择条
 
+    //工具条中显示的个人信息
+    var _excutorInfoItem: UIBarButtonItem? = nil
+
     var _nCurPage: Int = 0
 
     //创建函数-----------------------------------------------------------
@@ -189,10 +192,20 @@ class RootViewCtrllerPh: UIViewController, UIScrollViewDelegate {
     }
 
     private func switchToolbarBtn(index: Int) {
-        let arToolBtn = _subviews[index].getToolbarBtn()
-        if arToolBtn != nil {
-            
+        if _excutorInfoItem == nil {
+            _excutorInfoItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: nil)
         }
+
+        let space = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: self, action: nil)
+
+        var arToolBtn = [_excutorInfoItem!, space]
+
+        let arAddBtn = _subviews[index].getToolbarBtns()
+        if arAddBtn != nil  {
+             arToolBtn = arToolBtn + arAddBtn!
+        }
+
+        _toolbar.items = arToolBtn
     }
 
     //------------------------------------------------------------------

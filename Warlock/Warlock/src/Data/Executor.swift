@@ -24,25 +24,32 @@ class LevelInfo {
 }
 
 class RelatedData {
-    var arMEventID: [DataID] = [DataID]() //管理事件组，也就是根事件
+    var arMEventID: [DataID] = [] //管理事件组，也就是根事件
 
-    var arCEventSendID: [DataID] = [DataID]()
-    var arCEventReceiveID: [DataID] = [DataID]()
+    var arSendCEventID: [DataID] = []
+    var arReceiveCEventID: [DataID] = []
+    var arFollowedEventID: [DataID] = [] //关注的事件
 }
 
-class Executor: BaseData {
+class Executor: DataBase {
+    let saverID: DataID //变化记录器的id
+    let createTime: Time //创建时间
+
     var token: ExecutorToken
     var info: ExecutorInfo
     var level: LevelInfo
     var related: RelatedData
 
     init(ID: DataID, saverID: DataID, createTime: Time, token: ExecutorToken, info: ExecutorInfo, level: LevelInfo, related: RelatedData) {
+        self.saverID = saverID
+        self.createTime = createTime
+
         self.token = token
         self.info = info
         self.level = level
         self.related = related
 
-        super.init(ID: ID, saverID: saverID, createTime: createTime)
+        super.init(ID: ID)
     }
 }
 

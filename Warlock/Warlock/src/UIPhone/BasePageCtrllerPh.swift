@@ -62,7 +62,7 @@ class BasePageCtrllerPh: UIViewController {
     }
 
     //获取本页所属的工具条按钮
-    func getToolbarBtn() -> [UIBarButtonItem]? {
+    func getToolbarBtns() -> [UIBarButtonItem]? {
         print("switchToolbarBtn need inherit")
         return nil
     }

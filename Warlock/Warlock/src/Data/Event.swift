@@ -8,10 +8,13 @@
 
 import Foundation
 
-class Event: BaseData {
-    func getParentEventTypeArray() -> [BaseData.Type] {
+class Event: DataBase {
+    func getParentEventTypeArray() -> [Event.Type] {
         return []
     }
+
+    let saverID: DataID //变化记录器的id
+    let createTime: Time //创建时间
 
     let createrID: DataID //事件创造者
 
@@ -21,15 +24,19 @@ class Event: BaseData {
     var strDesc: String //事件的基本描述
 
     init(ID: DataID, saverID: DataID, createTime: Time, createrID: DataID, parentEventID: DataID?, strDesc: String) {
+        self.saverID = saverID
+        self.createTime = createTime
+
         self.createrID = createrID
         self.parentEventID = parentEventID
         self.strDesc = strDesc
-        super.init(ID: ID, saverID: saverID, createTime: createTime)
+        
+        super.init(ID: ID)
     }
 }
 
 //作为判断类型的类
-class None: BaseData {}
+class None: Event {}
 
 //管理事件，用于人员管理
 class MEvent: Event {
@@ -81,7 +88,7 @@ class ToBeSolEvent: CEvent {
 
 //团队
 class Team: MEvent {
-    override func getParentEventTypeArray() -> [BaseData.Type] {
+    override func getParentEventTypeArray() -> [Event.Type] {
         return [Team.self, None.self]
     }
 
@@ -92,7 +99,7 @@ class Team: MEvent {
 
 //产品
 class Product: MEvent {
-    override func getParentEventTypeArray() -> [BaseData.Type] {
+    override func getParentEventTypeArray() -> [Event.Type] {
         return [Team.self, Product.self, None.self]
     }
 
@@ -103,7 +110,7 @@ class Product: MEvent {
 
 //邀请
 class Invite: CEvent {
-    override func getParentEventTypeArray() -> [BaseData.Type] {
+    override func getParentEventTypeArray() -> [Event.Type] {
         return [Team.self, Product.self]
     }
 
@@ -120,7 +127,7 @@ class Invite: CEvent {
 
 //新需求：新任务，新内容
 class NewDemand: ToBeSolEvent {
-    override func getParentEventTypeArray() -> [BaseData.Type] {
+    override func getParentEventTypeArray() -> [Event.Type] {
         return [Product.self, ToBeSolEvent.self]
     }
 
@@ -134,7 +141,7 @@ class NewDemand: ToBeSolEvent {
 
 //改进
 class Improvement: ToBeSolEvent {
-    override func getParentEventTypeArray() -> [BaseData.Type] {
+    override func getParentEventTypeArray() -> [Event.Type] {
         return [Product.self, ToBeSolEvent.self]
     }
 
@@ -148,7 +155,7 @@ class Improvement: ToBeSolEvent {
 
 //迭代
 class Iterative: CEvent {
-    override func getParentEventTypeArray() -> [BaseData.Type] {
+    override func getParentEventTypeArray() -> [Event.Type] {
         return [Product.self]
     }
 
@@ -165,7 +172,7 @@ class Iterative: CEvent {
 
 //bug
 class Bug: ToBeSolEvent {
-    override func getParentEventTypeArray() -> [BaseData.Type] {
+    override func getParentEventTypeArray() -> [Event.Type] {
         return [Product.self, Bug.self]
     }
 
@@ -179,7 +186,7 @@ class Bug: ToBeSolEvent {
 
 //疑问
 class Query: CEvent {
-    override func getParentEventTypeArray() -> [BaseData.Type] {
+    override func getParentEventTypeArray() -> [Event.Type] {
         return [Event.self]
     }
 
@@ -193,7 +200,7 @@ class Query: CEvent {
 
 //讨论会
 class Discussion: CEvent {
-    override func getParentEventTypeArray() -> [BaseData.Type] {
+    override func getParentEventTypeArray() -> [Event.Type] {
         return [Event.self]
     }
 
@@ -207,7 +214,7 @@ class Discussion: CEvent {
 
 //对于产品的建议
 class Proposal: CEvent {
-    override func getParentEventTypeArray() -> [BaseData.Type] {
+    override func getParentEventTypeArray() -> [Event.Type] {
         return [Product.self]
     }
 
@@ -222,7 +229,7 @@ class Proposal: CEvent {
 
 //通知
 class Notice: CEvent {
-    override func getParentEventTypeArray() -> [BaseData.Type] {
+    override func getParentEventTypeArray() -> [Event.Type] {
         return [Event.self]
     }
 
@@ -240,7 +247,7 @@ class Notice: CEvent {
 //提示 对于任何事件的修改，可以发送提示相关人员
 //提示事件被执行后，会删除掉，因为可以通过saver查看修改
 class Prompt: CEvent {
-    override func getParentEventTypeArray() -> [BaseData.Type] {
+    override func getParentEventTypeArray() -> [Event.Type] {
         return [Event.self]
     }
 

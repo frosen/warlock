@@ -11,10 +11,11 @@ import Foundation
 class ExecutorMgr {
 
     //管理事件，其相关的所有交流事件的结构，还有时间戳
+    //管理事件可以为空，存在不属于某个管理事件的交流事件
     class MEventStruct {
-        var M: MEvent
+        var M: MEvent?
         var arC: [CEvent] = [CEvent]()
-        init(M: MEvent) {
+        init(M: MEvent?) {
             self.M = M
         }
     }
@@ -22,7 +23,7 @@ class ExecutorMgr {
     //属性
     var executor: Executor?
     var eventList: [MEventStruct] = [] //事件列表
-    var ID2Class: [DataID: DataCore] = [:]
+    var ID2Class: [DataID: DataBase] = [:] //生成list的时候，把对应的dataID和Data的关系注册到这里
 
     //生成单例
     class var shared: ExecutorMgr {

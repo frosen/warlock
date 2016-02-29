@@ -23,6 +23,6 @@ class SaverStruct {
     }
 }
 
-class Saver: DataCore {
+class Saver: DataBase {
     var arSaverStruct: [SaverStruct] = []
 }
