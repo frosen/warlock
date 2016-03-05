@@ -30,6 +30,8 @@ class PageMsgCtrllerPh: BasePageCtrllerPh, UITableViewDelegate, UITableViewDataS
         let plistPath = NSBundle.mainBundle().pathForResource("team", ofType: "plist", inDirectory: "res")
         //获取属性列表文件中的全部数据
         _arTeam = NSArray(contentsOfFile: plistPath!)!
+
+//        self._listView.contentInset.bottom = 100
     }
 
     override func getToolbarBtns() -> [UIBarButtonItem]? {
@@ -38,27 +40,27 @@ class PageMsgCtrllerPh: BasePageCtrllerPh, UITableViewDelegate, UITableViewDataS
         return [btn, btn2]
     }
 
-    var _aa: Int? = nil
     func test1(s: AnyObject) {
         print("teest 1")
-        let v = 6
-        _aa = v
-        _listView.beginUpdates()
-        _listView.endUpdates()
+        UIView.animateWithDuration(3, animations: {_ in
+            print("yse")
 
-        _listView.scrollToRowAtIndexPath(NSIndexPath(forRow: v, inSection: 0), atScrollPosition: .Top, animated: true)
+            self._listView.contentOffset.y = -100
+        })
+        self._listView.contentInset.top = 100
     }
 
     func test2(s: AnyObject) {
         print("teest 2")
     }
 
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        print(scrollView.contentOffset)
+    }
+
     //tableView协议---------------------------
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if _aa != nil && _aa! == indexPath.row {
-            return _listView.bounds.height
-        }
-        return 99
+        return 70
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

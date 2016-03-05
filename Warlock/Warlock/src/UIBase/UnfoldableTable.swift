@@ -171,27 +171,27 @@ class UnfoldableTable: UIScrollView, UIScrollViewDelegate {
     //滚动 遍历cell struct 如果in或者half的移出视框，则变成out
     //如果half完全进入视框，则变为in，同时加载新的cell
     func scrollViewDidScroll(scroll: UIScrollView) {
-        for cell in _arCell {
-            if cell.posState == .Out {
-                continue
-            }
-
-            let curPos = cell.view.frame.origin.y - contentOffset.y
-            if curPos < 0 || bounds.height < curPos + frame.height {
-                cell.posState = .Out
-            }
-
-            if cell.posState == .Half {
-                if _nLastPos < contentOffset.y && curPos < frame.height { //向上拖拽全部进入视框
-                    cell.posState = .In
-                    putCellFromPos(curPos + frame.height, formSourceIndex: cell.sourceIndex + 1)
-                } else if contentOffset.y < _nLastPos && 0 < curPos {
-                    cell.posState = .In
-                    putCellFromPos(curPos, formSourceIndex: cell.sourceIndex - 1, dirIsDown: false)
-                }
-            }
-
-        }
+//        for cell in _arCell {
+//            if cell.posState == .Out {
+//                continue
+//            }
+//
+//            let curPos = cell.view.frame.origin.y - contentOffset.y
+//            if curPos < 0 || bounds.height < curPos + frame.height {
+//                cell.posState = .Out
+//            }
+//
+//            if cell.posState == .Half {
+//                if _nLastPos < contentOffset.y && curPos < frame.height { //向上拖拽全部进入视框
+//                    cell.posState = .In
+//                    putCellFromPos(curPos + frame.height, formSourceIndex: cell.sourceIndex + 1)
+//                } else if contentOffset.y < _nLastPos && 0 < curPos {
+//                    cell.posState = .In
+//                    putCellFromPos(curPos, formSourceIndex: cell.sourceIndex - 1, dirIsDown: false)
+//                }
+//            }
+//
+//        }
     }
 }
 
